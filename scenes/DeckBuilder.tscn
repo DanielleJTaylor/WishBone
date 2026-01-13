@@ -1,38 +1,85 @@
 [gd_scene load_steps=2 format=3 uid="uid://bptq510bdsvd5"]
 
-[ext_resource type="Script" uid="uid://4y4xx05ug61u" path="res://scenes/DeckBuilder.gd" id="1_sgepa"]
+[ext_resource type="Script" uid="uid://ucun8qkwkgpk" path="res://scenes/DeckBuilder.gd" id="1_sgepa"]
 
 [node name="DeckBuilder" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_sgepa")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="MainVBox" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TabContainer" type="TabContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="TopBar" type="PanelContainer" parent="MainVBox"]
+layout_mode = 2
+
+[node name="TopRow" type="HBoxContainer" parent="MainVBox/TopBar"]
+layout_mode = 2
+
+[node name="CountLabel" type="Label" parent="MainVBox/TopBar/TopRow"]
+layout_mode = 2
+
+[node name="DeckPicker" type="OptionButton" parent="MainVBox/TopBar/TopRow"]
+layout_mode = 2
+
+[node name="DeckName" type="LineEdit" parent="MainVBox/TopBar/TopRow"]
+layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="MainVBox/TopBar/TopRow"]
+layout_mode = 2
+
+[node name="LoadButton" type="Button" parent="MainVBox/TopBar/TopRow"]
+layout_mode = 2
+
+[node name="ConfirmButton" type="Button" parent="MainVBox/TopBar/TopRow"]
+layout_mode = 2
+
+[node name="Tabs" type="TabContainer" parent="MainVBox"]
+layout_mode = 2
 current_tab = 0
 
-[node name="Control" type="Control" parent="TabContainer"]
+[node name="Control" type="Control" parent="MainVBox/Tabs"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Control"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainVBox/Tabs/Control"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Control2" type="Control" parent="TabContainer"]
+[node name="Control2" type="Control" parent="MainVBox/Tabs"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Control2"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainVBox/Tabs/Control2"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="BottomDetails" type="PanelContainer" parent="MainVBox"]
+layout_mode = 2
+
+[node name="DetailRow" type="HBoxContainer" parent="MainVBox/BottomDetails"]
+layout_mode = 2
+
+[node name="Art" type="TextureRect" parent="MainVBox/BottomDetails/DetailRow"]
+layout_mode = 2
+
+[node name="TextCol" type="VBoxContainer" parent="MainVBox/BottomDetails/DetailRow"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainVBox/BottomDetails/DetailRow/TextCol"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MainVBox/BottomDetails/DetailRow/TextCol"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainVBox/BottomDetails/DetailRow/TextCol"]
+layout_mode = 2
