@@ -1,0 +1,26 @@
+[
+  {
+	"speaker": "Narrator",
+	"mood": "🎙️",
+	"portrait_path": "res://assets/example.jpg",
+	"text": "There was once a time when the Alley Animalz ruled the streets — stealing and causing whatever mild annoyances they pleased."
+  },
+  {
+	"speaker": "Narrator",
+	"mood": "🎙️",
+	"portrait_path": "res://assets/example.jpg",
+	"text": "Until a legend appeared — our very own [b]Hiro[/b]. Facing off against the Alley Animalz, returning what was stolen, and being a good neighbor to all."
+  },
+  {
+	"speaker": "Narrator",
+	"mood": "🎙️",
+	"portrait_path": "res://assets/example.jpg",
+	"text": "But today, the Alley Animalz are up to their old tricks again — having recently 'acquired' an old lady’s purse."
+  },
+  {
+	"speaker": "Narrator",
+	"mood": "🎙️",
+	"portrait_path": "res://assets/example.jpg",
+	"text": "But don’t worry — Hiro is on the case and [i]ready to take a bite out of crime![/i]"
+  }
+]

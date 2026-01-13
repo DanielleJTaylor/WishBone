@@ -1,0 +1,612 @@
+[gd_scene load_steps=10 format=3 uid="uid://bhb2mwjsdfn70"]
+
+[ext_resource type="Texture2D" uid="uid://gcyv4j74hmf1" path="res://assets/Level background.jpg" id="1_dbyaq"]
+[ext_resource type="Script" uid="uid://e2qmdnrsg4oy" path="res://scripts/LevelSelect.gd" id="1_egmj1"]
+[ext_resource type="Theme" uid="uid://wxesb28f5lui" path="res://themes/LeftPanelBackButton.tres" id="3_ibarm"]
+[ext_resource type="Theme" uid="uid://v7b4gu83jlqf" path="res://themes/enemy_slot_selected.tres" id="4_3p8qn"]
+[ext_resource type="Theme" uid="uid://cieirocpitmnu" path="res://themes/MainTitle.tres" id="5_fmuyb"]
+[ext_resource type="Theme" uid="uid://dmbnfmiwjpymf" path="res://themes/TempCheckbox.tres" id="5_yxdfm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_egmj1"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.9529412, 0.90588236, 0.7764706, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.7254902, 0.5372549, 0.23921569, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yxdfm"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.9529412, 0.90588236, 0.7764706, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.7254902, 0.5372549, 0.23921569, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ibarm"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.72156864, 0.4745098, 0, 1)
+border_blend = true
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_right = 999
+corner_radius_bottom_left = 999
+
+[node name="LevelSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_egmj1")
+back_button_path = NodePath("SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/LeftHeaderRow/BackButton")
+enemy_name_label_path = NodePath("SafeArea/MainRow/RightPanel/MarginContainer/RightContent/EnemyName")
+enemy_desc_label_path = NodePath("SafeArea/MainRow/RightPanel/MarginContainer/RightContent/DetailRow/EnemyDesc")
+levels_row_path = NodePath("SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow")
+start_button_path = NodePath("SafeArea/MainRow/RightPanel/MarginContainer/RightContent/StartButton")
+intro_button_path = NodePath("SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Intro/PanelContainer/TextureButton")
+chips_button_path = NodePath("SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Chips/PanelContainer/TextureButton")
+raven_button_path = NodePath("SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Raven/PanelContainer/TextureButton")
+cats_button_path = NodePath("SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Cats/PanelContainer/TextureButton")
+nutso_button_path = NodePath("SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Nutso/PanelContainer/TextureButton")
+toad_button_path = NodePath("SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Toad/PanelContainer/TextureButton")
+ratsy_button_path = NodePath("SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Ratsy/PanelContainer/TextureButton")
+one_eye_button_path = NodePath("SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_One-Eye/PanelContainer/TextureButton")
+
+[node name="LevelBackground" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_dbyaq")
+stretch_mode = 6
+
+[node name="SafeArea" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="MainRow" type="HBoxContainer" parent="SafeArea"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="LeftPanel" type="PanelContainer" parent="SafeArea/MainRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+theme_override_styles/panel = SubResource("StyleBoxFlat_egmj1")
+
+[node name="LeftPadding" type="MarginContainer" parent="SafeArea/MainRow/LeftPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="LeftContent" type="VBoxContainer" parent="SafeArea/MainRow/LeftPanel/LeftPadding"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="LeftHeaderRow" type="HBoxContainer" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BackButton" type="Button" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/LeftHeaderRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_ibarm")
+text = "< Back"
+
+[node name="LeftHeader" type="Label" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/LeftHeaderRow"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.16470589, 0.16470589, 0.16470589, 1)
+theme_override_font_sizes/font_size = 32
+text = "SELECT ENEMY"
+horizontal_alignment = 3
+vertical_alignment = 1
+
+[node name="HeaderSpacer" type="Control" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/LeftHeaderRow"]
+layout_mode = 2
+
+[node name="EnemyGrid" type="GridContainer" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 14
+columns = 2
+
+[node name="Intro" type="Control" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Intro"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_3p8qn")
+
+[node name="TextureButton" type="TextureButton" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Intro/PanelContainer"]
+layout_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Intro"]
+layout_mode = 0
+offset_top = 58.0
+offset_right = 140.0
+offset_bottom = 81.0
+text = "Intro"
+
+[node name="Enemy_Chips" type="Control" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Chips"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_3p8qn")
+
+[node name="TextureButton" type="TextureButton" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Chips/PanelContainer"]
+layout_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Chips"]
+layout_mode = 0
+offset_top = 58.0
+offset_right = 140.0
+offset_bottom = 81.0
+text = "Intro"
+
+[node name="Enemy_Raven" type="Control" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Raven"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_3p8qn")
+
+[node name="TextureButton" type="TextureButton" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Raven/PanelContainer"]
+layout_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Raven"]
+layout_mode = 0
+offset_top = 58.0
+offset_right = 140.0
+offset_bottom = 81.0
+text = "Intro"
+
+[node name="Enemy_Cats" type="Control" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Cats"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_3p8qn")
+
+[node name="TextureButton" type="TextureButton" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Cats/PanelContainer"]
+layout_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Cats"]
+layout_mode = 0
+offset_top = 58.0
+offset_right = 140.0
+offset_bottom = 81.0
+text = "Intro"
+
+[node name="Enemy_Nutso" type="Control" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Nutso"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_3p8qn")
+
+[node name="TextureButton" type="TextureButton" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Nutso/PanelContainer"]
+layout_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Nutso"]
+layout_mode = 0
+offset_top = 58.0
+offset_right = 140.0
+offset_bottom = 81.0
+text = "Intro"
+
+[node name="Enemy_Toad" type="Control" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Toad"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_3p8qn")
+
+[node name="TextureButton" type="TextureButton" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Toad/PanelContainer"]
+layout_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Toad"]
+layout_mode = 0
+offset_top = 58.0
+offset_right = 140.0
+offset_bottom = 81.0
+text = "Intro"
+
+[node name="Enemy_Ratsy" type="Control" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Ratsy"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_3p8qn")
+
+[node name="TextureButton" type="TextureButton" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Ratsy/PanelContainer"]
+layout_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Ratsy"]
+layout_mode = 0
+offset_top = 58.0
+offset_right = 140.0
+offset_bottom = 81.0
+text = "Intro"
+
+[node name="Enemy_One-Eye" type="Control" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_One-Eye"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_3p8qn")
+
+[node name="TextureButton" type="TextureButton" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_One-Eye/PanelContainer"]
+layout_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_One-Eye"]
+layout_mode = 0
+offset_top = 58.0
+offset_right = 140.0
+offset_bottom = 81.0
+text = "Intro"
+
+[node name="RightPanel" type="PanelContainer" parent="SafeArea/MainRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+theme_override_styles/panel = SubResource("StyleBoxFlat_yxdfm")
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/MainRow/RightPanel"]
+layout_mode = 2
+
+[node name="RightContent" type="VBoxContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="EnemyName" type="Label" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.16470589, 0.16470589, 0.16470589, 1)
+theme_override_font_sizes/font_size = 64
+text = "CHIPS THE RACCOON"
+
+[node name="DetailRow" type="HBoxContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="EnemyDesc" type="Label" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/DetailRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.22745098, 0.18431373, 0.10980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Description
+"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Portrait" type="Control" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/DetailRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(420, 420)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/DetailRow/Portrait"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ibarm")
+
+[node name="PortraitName" type="Label" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/DetailRow/Portrait"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.22745098, 0.18431373, 0.10980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "CHIPS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelsRow" type="HBoxContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="LevelBadge1" type="Button" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("5_yxdfm")
+
+[node name="CenterContainer" type="CenterContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge1/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge1/PanelContainer/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "✓"
+
+[node name="LevelBadge2" type="Button" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("5_yxdfm")
+
+[node name="CenterContainer" type="CenterContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge2/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge2/PanelContainer/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "✓"
+
+[node name="LevelBadge3" type="Button" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("5_yxdfm")
+
+[node name="CenterContainer" type="CenterContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge3/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge3/PanelContainer/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "✓"
+
+[node name="LevelBadge4" type="Button" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("5_yxdfm")
+
+[node name="CenterContainer" type="CenterContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge4/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge4/PanelContainer/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "✓"
+
+[node name="LevelBadge5" type="Button" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("5_yxdfm")
+
+[node name="CenterContainer" type="CenterContainer" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge5/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow/LevelBadge5/PanelContainer/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "✓"
+
+[node name="WarningLabel" type="Label" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="SafeArea/MainRow/RightPanel/MarginContainer/RightContent"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("5_fmuyb")
+theme_override_font_sizes/font_size = 64
+text = "Start"
+
+[node name="LevelSelect" type="Node" parent="."]
+script = ExtResource("1_egmj1")
+back_button_path = NodePath("../SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/LeftHeaderRow/BackButton")
+enemy_name_label_path = NodePath("../SafeArea/MainRow/RightPanel/MarginContainer/RightContent/EnemyName")
+enemy_desc_label_path = NodePath("../SafeArea/MainRow/RightPanel/MarginContainer/RightContent/DetailRow/EnemyDesc")
+levels_row_path = NodePath("../SafeArea/MainRow/RightPanel/MarginContainer/RightContent/LevelsRow")
+start_button_path = NodePath("../SafeArea/MainRow/RightPanel/MarginContainer/RightContent/StartButton")
+intro_button_path = NodePath("../SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Intro/PanelContainer/TextureButton")
+chips_button_path = NodePath("../SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Chips/PanelContainer/TextureButton")
+raven_button_path = NodePath("../SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Raven/PanelContainer/TextureButton")
+cats_button_path = NodePath("../SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Cats/PanelContainer/TextureButton")
+nutso_button_path = NodePath("../SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Nutso/PanelContainer/TextureButton")
+toad_button_path = NodePath("../SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Toad/PanelContainer/TextureButton")
+ratsy_button_path = NodePath("../SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_Ratsy/PanelContainer/TextureButton")
+one_eye_button_path = NodePath("../SafeArea/MainRow/LeftPanel/LeftPadding/LeftContent/EnemyGrid/Enemy_One-Eye/PanelContainer/TextureButton")

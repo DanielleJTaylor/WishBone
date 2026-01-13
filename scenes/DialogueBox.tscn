@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgypcwuxa0gx5"]
+
+[ext_resource type="Script" uid="uid://suv4taeskg32" path="res://scripts/DialogueBox.gd" id="1_62fiq"]
+
+[node name="DialogueBox" type="CanvasLayer"]
+layer = 50
+follow_viewport_enabled = true
+script = ExtResource("1_62fiq")
+
+[node name="RootUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Pad" type="MarginContainer" parent="RootUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16

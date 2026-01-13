@@ -1,0 +1,33 @@
+﻿# Godot
+.import/
+.export/
+.export_presets.cfg
+*.translation
+.mono/
+data_*/
+*.tmp
+*.temp
+*.bak
+*.old
+*.log
+
+# Godot 4 cache + editor
+.godot/
+.editorconfig.user
+*.uid
+
+# Builds
+builds/
+bin/
+dist/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# C# (only if you use it)
+*.csproj
+*.sln
+.nuget/

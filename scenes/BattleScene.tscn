@@ -1,0 +1,655 @@
+[gd_scene load_steps=41 format=3 uid="uid://r3tmhe3w0l5s"]
+
+[ext_resource type="Script" uid="uid://bmepca57i8civ" path="res://scripts/ZoomController.gd" id="1_bsu3s"]
+[ext_resource type="Script" uid="uid://bwxucp37hrid7" path="res://scripts/BattleUI.gd" id="1_sdfhe"]
+[ext_resource type="Texture2D" uid="uid://bv0uln1ak7r6x" path="res://assets/ProtoChipsBackground.png" id="2_3mvhd"]
+[ext_resource type="PackedScene" uid="uid://dvh5f7ju24ysw" path="res://scenes/CreaturePanel.tscn" id="2_gkmpl"]
+[ext_resource type="PackedScene" uid="uid://bqsaslj40pxde" path="res://scenes/HiroCard.tscn" id="2_sgm0l"]
+[ext_resource type="Texture2D" uid="uid://bap7x4o7vswy0" path="res://assets/ExCardTray.png" id="4_28s16"]
+[ext_resource type="Texture2D" uid="uid://c5dxulmmthkhw" path="res://assets/cardback.png" id="4_ftvu5"]
+[ext_resource type="Script" uid="uid://dgxgr63rnkudi" path="res://scripts/BattlePanels.gd" id="5_lyay3"]
+[ext_resource type="Texture2D" uid="uid://bdu31dd6uocdw" path="res://assets/CardButton.png" id="6_0yex5"]
+[ext_resource type="Script" uid="uid://bktabnvrbssf3" path="res://scripts/HandLayout.gd" id="8_sdfhe"]
+[ext_resource type="Script" uid="uid://cwxb7khayfu5a" path="res://scripts/CardDatabase.gd" id="9_hrc4b"]
+[ext_resource type="Script" uid="uid://dm3rmvgedto0m" path="res://scripts/TrackBar.gd" id="11_irk3j"]
+[ext_resource type="Texture2D" uid="uid://bdgn2yh1xrnm4" path="res://assets/LeftTrackTile.png" id="12_irk3j"]
+[ext_resource type="Script" uid="uid://bdjgenjf0m4xj" path="res://scripts/DrawPileHint.gd" id="12_prxlm"]
+[ext_resource type="Texture2D" uid="uid://c745s733jg6w2" path="res://assets/TrackTile.png" id="13_l1ooa"]
+[ext_resource type="Shader" uid="uid://dfw70mionrygi" path="res://scenes/BattleScene.gdshader" id="13_lckn5"]
+[ext_resource type="Script" uid="uid://btp7d2ictcjbc" path="res://scripts/TrackSprites.gd" id="14_l1ooa"]
+[ext_resource type="Texture2D" uid="uid://c0vmnqeeju3gv" path="res://assets/gold_arrow-removebg-preview.png" id="14_prxlm"]
+[ext_resource type="Script" uid="uid://bt3vbevc5mr4m" path="res://scripts/BattleCombatant.gd" id="15_h7erw"]
+[ext_resource type="Texture2D" uid="uid://c4wnq8v58xc2m" path="res://assets/Hiro Animations/Idle.png" id="15_vtyuj"]
+[ext_resource type="Script" uid="uid://ideyglvyuctu" path="res://scripts/DiscardPileWidget.gd" id="16_242tl"]
+[ext_resource type="Texture2D" uid="uid://i0cwng7o2km1" path="res://assets/RaccoonIdle.png" id="16_ahh7x"]
+[ext_resource type="Script" uid="uid://b70xm3u6yfwxg" path="res://scripts/BattleTurnSystem.gd" id="16_twkpy"]
+[ext_resource type="Script" uid="uid://dbr0jvk7shf16" path="res://scripts/BattleCardAnimator.gd" id="17_dhoow"]
+[ext_resource type="Script" uid="uid://dvk5rj1jv25dc" path="res://scripts/DiscardOverlay.gd" id="17_s45ie"]
+[ext_resource type="Script" uid="uid://chcu6bilaal1p" path="res://scripts/BattleHandController.gd" id="18_ahh7x"]
+[ext_resource type="Script" uid="uid://cr6o1eo1ck4qh" path="res://scripts/EffectEngine.gd" id="21_ahh7x"]
+[ext_resource type="Script" uid="uid://b47afy07wv2tp" path="res://scripts/TrackMovementController.gd" id="28_tse8l"]
+[ext_resource type="Script" uid="uid://ctt52ce3mrxfc" path="res://scripts/SimpleEnemyAI.gd" id="29_so6w4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyay3"]
+atlas = ExtResource("15_vtyuj")
+region = Rect2(0, 18, 48, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikhwg"]
+atlas = ExtResource("15_vtyuj")
+region = Rect2(48, 18, 48, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gmaf"]
+atlas = ExtResource("15_vtyuj")
+region = Rect2(96, 18, 48, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twkpy"]
+atlas = ExtResource("15_vtyuj")
+region = Rect2(144, 18, 48, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dhoow"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyay3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikhwg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4gmaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twkpy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhoow"]
+atlas = ExtResource("16_ahh7x")
+region = Rect2(0, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahh7x"]
+atlas = ExtResource("16_ahh7x")
+region = Rect2(32, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7erw"]
+atlas = ExtResource("16_ahh7x")
+region = Rect2(64, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s45ie"]
+atlas = ExtResource("16_ahh7x")
+region = Rect2(96, 0, 32, 23)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v6eoa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhoow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahh7x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7erw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s45ie")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tse8l"]
+shader = ExtResource("13_lckn5")
+shader_parameter/glow_color = Color(1, 0.85, 0.25, 1)
+shader_parameter/softness = 2.2
+shader_parameter/intensity = 9.0
+
+[node name="BattleScene" type="Control" node_paths=PackedStringArray("card_db", "hand_layout", "play_button", "zoom_controller")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sdfhe")
+CardScene = ExtResource("2_sgm0l")
+card_db = NodePath("CardDatabase")
+hand_layout = NodePath("UILayer/Bottom Bar/CardArea/Tray/HandBounds/HandLayout")
+play_button = NodePath("UILayer/Bottom Bar/CardArea/Tray/PlayButtonWrapper/CardPlayButton/HitButton")
+zoom_controller = NodePath("UILayer/ZoomLayer")
+
+[node name="UILayer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="UILayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_3mvhd")
+
+[node name="Top Bar" type="Control" parent="UILayer"]
+custom_minimum_size = Vector2(0, 198)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="HiroPanel" parent="UILayer/Top Bar" instance=ExtResource("2_gkmpl")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -199.0
+offset_bottom = 0.0
+grow_vertical = 0
+
+[node name="EnemyPanel" parent="UILayer/Top Bar" instance=ExtResource("2_gkmpl")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -430.0
+offset_top = -199.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Middle Track" type="Control" parent="UILayer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -150.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TrackBar" type="Control" parent="UILayer/Middle Track"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("11_irk3j")
+left_tiles = 6
+right_tiles = 6
+center_line_width = 0
+print_debug = true
+
+[node name="Row" type="HBoxContainer" parent="UILayer/Middle Track/TrackBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="LeftGroup" type="HBoxContainer" parent="UILayer/Middle Track/TrackBar/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = -12
+
+[node name="LeftTile" type="TextureRect" parent="UILayer/Middle Track/TrackBar/Row/LeftGroup"]
+texture_filter = 1
+custom_minimum_size = Vector2(148.14815, 100)
+layout_mode = 2
+texture = ExtResource("12_irk3j")
+expand_mode = 1
+
+[node name="LeftMidTile" type="TextureRect" parent="UILayer/Middle Track/TrackBar/Row/LeftGroup"]
+texture_filter = 1
+custom_minimum_size = Vector2(148.14815, 100)
+layout_mode = 2
+texture = ExtResource("13_l1ooa")
+expand_mode = 1
+
+[node name="MidLine" type="Control" parent="UILayer/Middle Track/TrackBar/Row"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="RightGroup" type="HBoxContainer" parent="UILayer/Middle Track/TrackBar/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = -12
+
+[node name="RightMidTile" type="TextureRect" parent="UILayer/Middle Track/TrackBar/Row/RightGroup"]
+texture_filter = 1
+custom_minimum_size = Vector2(148.14815, 100)
+layout_mode = 2
+texture = ExtResource("13_l1ooa")
+expand_mode = 1
+flip_h = true
+
+[node name="RightTile" type="TextureRect" parent="UILayer/Middle Track/TrackBar/Row/RightGroup"]
+texture_filter = 1
+custom_minimum_size = Vector2(148.14815, 100)
+layout_mode = 2
+texture = ExtResource("12_irk3j")
+expand_mode = 1
+flip_h = true
+
+[node name="Sprites" type="Control" parent="UILayer/Middle Track"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("14_l1ooa")
+print_every_update = true
+
+[node name="Hiro" type="AnimatedSprite2D" parent="UILayer/Middle Track/Sprites"]
+texture_filter = 1
+position = Vector2(886.0741, 125)
+scale = Vector2(3.125, 3.6666667)
+sprite_frames = SubResource("SpriteFrames_dhoow")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.9028747
+script = ExtResource("15_h7erw")
+
+[node name="Enemy" type="AnimatedSprite2D" parent="UILayer/Middle Track/Sprites"]
+texture_filter = 1
+position = Vector2(1034.0741, 125)
+scale = Vector2(4.6875, 4.7826085)
+sprite_frames = SubResource("SpriteFrames_v6eoa")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.16666229
+script = ExtResource("15_h7erw")
+stumble_direction = 1
+
+[node name="Bottom Bar" type="Control" parent="UILayer"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -400.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CardArea" type="Control" parent="UILayer/Bottom Bar"]
+custom_minimum_size = Vector2(1800, 350)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="DrawPile" type="Control" parent="UILayer/Bottom Bar/CardArea"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -175.0
+offset_right = 290.0
+offset_bottom = 175.0
+grow_vertical = 2
+script = ExtResource("12_prxlm")
+
+[node name="Glow" type="ColorRect" parent="UILayer/Bottom Bar/CardArea/DrawPile"]
+visible = false
+material = SubResource("ShaderMaterial_tse8l")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BackofCard" type="TextureRect" parent="UILayer/Bottom Bar/CardArea/DrawPile"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.38625
+offset_top = -105.0
+offset_right = 76.38625
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_ftvu5")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Arrow" type="TextureRect" parent="UILayer/Bottom Bar/CardArea/DrawPile/BackofCard"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -37.50026
+offset_top = -99.0
+offset_right = 37.49974
+offset_bottom = 6.475113
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("14_prxlm")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="DrawButton" type="Button" parent="UILayer/Bottom Bar/CardArea/DrawPile/BackofCard"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tray" type="Control" parent="UILayer/Bottom Bar/CardArea"]
+custom_minimum_size = Vector2(1330, 350)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -665.0
+offset_top = -350.0
+offset_right = 665.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TrayBG" type="TextureRect" parent="UILayer/Bottom Bar/CardArea/Tray"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_28s16")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="PlayButtonWrapper" type="Control" parent="UILayer/Bottom Bar/CardArea/Tray"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -315.0
+offset_top = -125.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="CardPlayButton" type="TextureRect" parent="UILayer/Bottom Bar/CardArea/Tray/PlayButtonWrapper"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_0yex5")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HitButton" type="Button" parent="UILayer/Bottom Bar/CardArea/Tray/PlayButtonWrapper/CardPlayButton"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HandBounds" type="Control" parent="UILayer/Bottom Bar/CardArea/Tray"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 86.0
+offset_top = 50.0
+offset_right = -330.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HandLayout" type="Control" parent="UILayer/Bottom Bar/CardArea/Tray/HandBounds"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_sdfhe")
+max_card_height = 210.0
+
+[node name="DiscardPile" type="Control" parent="UILayer/Bottom Bar/CardArea"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(290, 350)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -175.0
+offset_bottom = 175.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("16_242tl")
+discard_overlay_path = NodePath("../../../DiscardOverlay")
+
+[node name="TopCardPreview" type="Control" parent="UILayer/Bottom Bar/CardArea/DiscardPile"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopCardArt" type="TextureRect" parent="UILayer/Bottom Bar/CardArea/DiscardPile/TopCardPreview"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopCardButton" type="Button" parent="UILayer/Bottom Bar/CardArea/DiscardPile/TopCardPreview"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+clip_text = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="ActionPromptLabel" type="Label" parent="UILayer/Bottom Bar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "ActionPromptText"
+
+[node name="ZoomLayer" type="CanvasLayer" parent="UILayer"]
+unique_name_in_owner = true
+script = ExtResource("1_bsu3s")
+
+[node name="ZoomBackdrop" type="ColorRect" parent="UILayer/ZoomLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8980392)
+
+[node name="ZoomSlot" type="Control" parent="UILayer/ZoomLayer"]
+unique_name_in_owner = true
+z_index = 200
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="DiscardOverlay" type="Control" parent="UILayer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_s45ie")
+
+[node name="Backdrop" type="ColorRect" parent="UILayer/DiscardOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.78039217)
+
+[node name="Center" type="HBoxContainer" parent="UILayer/DiscardOverlay"]
+custom_minimum_size = Vector2(0, 700)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftButton" type="Button" parent="UILayer/DiscardOverlay/Center"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 100)
+layout_mode = 2
+text = "<"
+
+[node name="CardStrip" type="HBoxContainer" parent="UILayer/DiscardOverlay/Center"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightButton" type="Button" parent="UILayer/DiscardOverlay/Center"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 100)
+layout_mode = 2
+text = ">"
+
+[node name="RoundLabel" type="Label" parent="UILayer"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -198.5
+offset_top = 15.0
+offset_right = 198.5
+offset_bottom = 152.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 100
+text = "Round 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TurnSystem" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("16_twkpy")
+hand_controller_path = NodePath("../HandController")
+effect_engine_path = NodePath("../EffectEngine")
+enemy_ai_path = NodePath("../SimpleEnemyAI")
+enemy_intro_delay_min = 2.0
+enemy_intro_delay_max = 4.0
+
+[node name="CardAnimator" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("17_dhoow")
+
+[node name="HandController" type="Node" parent="." node_paths=PackedStringArray("hand_layout", "card_db", "draw_pile_node")]
+unique_name_in_owner = true
+script = ExtResource("18_ahh7x")
+hand_layout = NodePath("../UILayer/Bottom Bar/CardArea/Tray/HandBounds/HandLayout")
+card_db = NodePath("../CardDatabase")
+draw_pile_node = NodePath("../UILayer/Bottom Bar/CardArea/DrawPile/BackofCard")
+enemy_hand_size = 7
+
+[node name="Panels" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_lyay3")
+hiro_panel_path = NodePath("../UILayer/Top Bar/HiroPanel")
+enemy_panel_path = NodePath("../UILayer/Top Bar/EnemyPanel")
+
+[node name="CardDatabase" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("9_hrc4b")
+
+[node name="EffectEngine" type="Node" parent="."]
+script = ExtResource("21_ahh7x")
+movement_controller_path = NodePath("../TrackMovement")
+
+[node name="TrackMovement" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("28_tse8l")
+track_bar_path = NodePath("../UILayer/Middle Track/TrackBar")
+track_sprites_path = NodePath("../UILayer/Middle Track/Sprites")
+hiro_combatant_path = NodePath("../UILayer/Middle Track/Sprites/Hiro")
+enemy_combatant_path = NodePath("../UILayer/Middle Track/Sprites/Enemy")
+
+[node name="SimpleEnemyAI" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("29_so6w4")
+
+[editable path="UILayer/Top Bar/HiroPanel"]
+[editable path="UILayer/Top Bar/EnemyPanel"]

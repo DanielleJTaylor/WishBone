@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://bptq510bdsvd5"]
+
+[ext_resource type="Script" uid="uid://4y4xx05ug61u" path="res://scenes/DeckBuilder.gd" id="1_sgepa"]
+
+[node name="DeckBuilder" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_sgepa")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+current_tab = 0
+
+[node name="Control" type="Control" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Control2" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Control2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

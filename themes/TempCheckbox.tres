@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dmbnfmiwjpymf"]
+
+[ext_resource type="StyleBox" uid="uid://0e6y3irkvdca" path="res://themes/pressedlevelbadge.tres" id="1_d5f5c"]
+
+[resource]
+PanelContainer/styles/panel = ExtResource("1_d5f5c")

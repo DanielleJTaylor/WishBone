@@ -1,0 +1,163 @@
+[gd_scene load_steps=9 format=3 uid="uid://dvh5f7ju24ysw"]
+
+[ext_resource type="Texture2D" uid="uid://dhofq5vj8crc1" path="res://assets/HiroPanel.png" id="1_j21mj"]
+[ext_resource type="Texture2D" uid="uid://c78a5stgum4tj" path="res://assets/Hiro's collar for panel.png" id="2_j21mj"]
+[ext_resource type="Texture2D" uid="uid://dg22vvrdki17" path="res://assets/heart_icon.png" id="2_vhlha"]
+[ext_resource type="Texture2D" uid="uid://cwqcpt6vjbm7i" path="res://assets/turn_icon.png" id="3_gn7o5"]
+[ext_resource type="FontFile" uid="uid://dsa4lvn27tk10" path="res://assets/pixel_operator/PixelOperator-Bold.ttf" id="3_hoqb2"]
+[ext_resource type="FontFile" uid="uid://c6dt242a3h4eb" path="res://assets/pixel_operator/PixelOperatorSC-Bold.ttf" id="6_dtj7m"]
+
+[sub_resource type="Gradient" id="Gradient_j21mj"]
+offsets = PackedFloat32Array(0, 0.35340315, 1)
+colors = PackedColorArray(0.78039217, 0.46666667, 0, 1, 1, 0.7176471, 0.011764706, 1, 1, 0.9529412, 0.6901961, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hoqb2"]
+gradient = SubResource("Gradient_j21mj")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[node name="CreaturePanel" type="Control"]
+custom_minimum_size = Vector2(430, 199)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 430.0
+offset_bottom = 199.0
+
+[node name="Frame" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(432, 198)
+layout_mode = 0
+texture = ExtResource("1_j21mj")
+expand_mode = 3
+
+[node name="Content" type="MarginContainer" parent="Frame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 26
+
+[node name="Row" type="HBoxContainer" parent="Frame/Content"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PortraitBox" type="Control" parent="Frame/Content/Row"]
+custom_minimum_size = Vector2(127, 0)
+layout_mode = 2
+
+[node name="Portrait" type="TextureRect" parent="Frame/Content/Row/PortraitBox"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 124.0
+offset_bottom = 151.0
+texture = ExtResource("2_j21mj")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Frame/Content/Row"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="NameWrap" type="Control" parent="Frame/Content/Row/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Frame/Content/Row/VBoxContainer/NameWrap"]
+unique_name_in_owner = true
+clip_children = 2
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0.101960786, 0.047058824, 0.019607844, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_hoqb2")
+theme_override_font_sizes/font_size = 40
+text = "HIRO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Frame/Content/Row/VBoxContainer/NameWrap/NameLabel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_hoqb2")
+expand_mode = 1
+
+[node name="HpRow" type="HBoxContainer" parent="Frame/Content/Row/VBoxContainer"]
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="HpIcon" type="TextureRect" parent="Frame/Content/Row/VBoxContainer/HpRow"]
+layout_mode = 2
+texture = ExtResource("2_vhlha")
+expand_mode = 3
+
+[node name="HpLabel" type="Label" parent="Frame/Content/Row/VBoxContainer/HpRow"]
+unique_name_in_owner = true
+clip_children = 2
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.16862746, 0.078431375, 0.03137255, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_hoqb2")
+theme_override_font_sizes/font_size = 40
+text = "HP 10/10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Frame/Content/Row/VBoxContainer/HpRow/HpLabel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_hoqb2")
+expand_mode = 1
+
+[node name="TurnRow" type="HBoxContainer" parent="Frame/Content/Row/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="TurnIcon" type="TextureRect" parent="Frame/Content/Row/VBoxContainer/TurnRow"]
+layout_mode = 2
+texture = ExtResource("3_gn7o5")
+expand_mode = 3
+
+[node name="TurnLabel" type="Label" parent="Frame/Content/Row/VBoxContainer/TurnRow"]
+unique_name_in_owner = true
+clip_children = 2
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("6_dtj7m")
+theme_override_font_sizes/font_size = 40
+text = "TURNS: 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Frame/Content/Row/VBoxContainer/TurnRow/TurnLabel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_hoqb2")
+expand_mode = 1
