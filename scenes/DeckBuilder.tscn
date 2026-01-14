@@ -1,6 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://bptq510bdsvd5"]
+[gd_scene load_steps=4 format=3 uid="uid://bptq510bdsvd5"]
 
-[ext_resource type="Script" uid="uid://4y4xx05ug61u" path="res://scenes/DeckBuilder.gd" id="1_sgepa"]
+[ext_resource type="Theme" uid="uid://cfq54jpka2bma" path="res://themes/DeckBuilderSaveButton.tres" id="1_nerx1"]
+[ext_resource type="Texture2D" uid="uid://bjf27bda7rhkf" path="res://assets/blueturn.png" id="1_sgepa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgepa"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.10980392, 0.18039216, 0.43529412, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.047058824, 0.08627451, 0.24705882, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="DeckBuilder" type="Control"]
 layout_mode = 3
@@ -9,15 +26,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_sgepa")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.078431375, 0.3764706, 0.7019608, 1)
 
 [node name="MainVBox" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -26,48 +43,83 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 8
 
 [node name="TopBar" type="PanelContainer" parent="MainVBox"]
 custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sgepa")
 
 [node name="TopRow" type="HBoxContainer" parent="MainVBox/TopBar"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 16
 
 [node name="CountLabel" type="Label" parent="MainVBox/TopBar/TopRow"]
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 60
 text = "0 / 52"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DeckPicker" type="OptionButton" parent="MainVBox/TopBar/TopRow"]
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.75
 
 [node name="DeckName" type="LineEdit" parent="MainVBox/TopBar/TopRow"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+text = "Name"
 
 [node name="SaveButton" type="Button" parent="MainVBox/TopBar/TopRow"]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+theme = ExtResource("1_nerx1")
+theme_override_font_sizes/font_size = 42
+text = "Save"
 
 [node name="LoadButton" type="Button" parent="MainVBox/TopBar/TopRow"]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Load
+"
 
 [node name="ConfirmButton" type="Button" parent="MainVBox/TopBar/TopRow"]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Confirm
+"
 
 [node name="Tabs" type="TabContainer" parent="MainVBox"]
 layout_mode = 2
+size_flags_vertical = 3
 current_tab = 0
 
 [node name="All" type="Control" parent="MainVBox/Tabs"]
+clip_contents = true
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainVBox/Tabs/All"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="AllScroll" type="ScrollContainer" parent="MainVBox/Tabs/All"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllGrid" type="GridContainer" parent="MainVBox/Tabs/All/AllScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 14
+columns = 8
 
 [node name="Selected" type="Control" parent="MainVBox/Tabs"]
 visible = false
@@ -75,21 +127,29 @@ layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="SelScroll" type="ScrollContainer" parent="MainVBox/Tabs/Selected"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainVBox/Tabs/Selected/SelScroll"]
+[node name="SelLGrid" type="VBoxContainer" parent="MainVBox/Tabs/Selected/SelScroll"]
 layout_mode = 2
 
 [node name="BottomDetails" type="PanelContainer" parent="MainVBox"]
+custom_minimum_size = Vector2(0, 320)
 layout_mode = 2
 
 [node name="DetailRow" type="HBoxContainer" parent="MainVBox/BottomDetails"]
 layout_mode = 2
 
 [node name="Art" type="TextureRect" parent="MainVBox/BottomDetails/DetailRow"]
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
+texture = ExtResource("1_sgepa")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="TextCol" type="VBoxContainer" parent="MainVBox/BottomDetails/DetailRow"]
 layout_mode = 2
