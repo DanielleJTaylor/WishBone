@@ -17,4 +17,5 @@ corner_radius_bottom_right = 999
 corner_radius_bottom_left = 999
 
 [resource]
+Label/font_sizes/font_size = 24
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_1tiwg")

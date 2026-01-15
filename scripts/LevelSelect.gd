@@ -482,9 +482,19 @@ func _refresh_start_enabled() -> void:
 func _on_back_pressed() -> void:
 	var t := _tree()
 	if t == null:
-		push_error("LevelSelect: No SceneTree (node not inside tree).")
+		push_error("LevelSelect: Back pressed but no SceneTree (node not inside tree).")
 		return
-	t.change_scene_to_file(LevelDatabase.SCENE_TITLE)
+
+	var scene := "res://scenes/MainTitle.tscn"
+	if not ResourceLoader.exists(scene):
+		push_error("LevelSelect: Missing scene: %s" % scene)
+		return
+
+	var err := t.change_scene_to_file(scene)
+	if err != OK:
+		push_error("LevelSelect: change_scene_to_file failed: %s" % str(err))
+
+
 
 func _on_start_pressed() -> void:
 	var t := _tree()

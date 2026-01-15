@@ -1,34 +1,34 @@
 [gd_scene load_steps=41 format=3 uid="uid://r3tmhe3w0l5s"]
 
-[ext_resource type="Script" uid="uid://bmepca57i8civ" path="res://scripts/ZoomController.gd" id="1_bsu3s"]
-[ext_resource type="Script" uid="uid://bwxucp37hrid7" path="res://scripts/BattleUI.gd" id="1_sdfhe"]
+[ext_resource type="Script" uid="uid://c523s5ndhu6il" path="res://scripts/ZoomController.gd" id="1_bsu3s"]
+[ext_resource type="Script" uid="uid://bsvy43kx0bnjf" path="res://scripts/BattleUI.gd" id="1_sdfhe"]
 [ext_resource type="Texture2D" uid="uid://bv0uln1ak7r6x" path="res://assets/ProtoChipsBackground.png" id="2_3mvhd"]
 [ext_resource type="PackedScene" uid="uid://dvh5f7ju24ysw" path="res://scenes/CreaturePanel.tscn" id="2_gkmpl"]
 [ext_resource type="PackedScene" uid="uid://bqsaslj40pxde" path="res://scenes/HiroCard.tscn" id="2_sgm0l"]
 [ext_resource type="Texture2D" uid="uid://bap7x4o7vswy0" path="res://assets/ExCardTray.png" id="4_28s16"]
 [ext_resource type="Texture2D" uid="uid://c5dxulmmthkhw" path="res://assets/cardback.png" id="4_ftvu5"]
-[ext_resource type="Script" uid="uid://dgxgr63rnkudi" path="res://scripts/BattlePanels.gd" id="5_lyay3"]
+[ext_resource type="Script" uid="uid://dgb8qs68qf1km" path="res://scripts/BattlePanels.gd" id="5_lyay3"]
 [ext_resource type="Texture2D" uid="uid://bdu31dd6uocdw" path="res://assets/CardButton.png" id="6_0yex5"]
-[ext_resource type="Script" uid="uid://bktabnvrbssf3" path="res://scripts/HandLayout.gd" id="8_sdfhe"]
-[ext_resource type="Script" uid="uid://cwxb7khayfu5a" path="res://scripts/CardDatabase.gd" id="9_hrc4b"]
-[ext_resource type="Script" uid="uid://dm3rmvgedto0m" path="res://scripts/TrackBar.gd" id="11_irk3j"]
+[ext_resource type="Script" uid="uid://d1lprx2i4g1sg" path="res://scripts/HandLayout.gd" id="8_sdfhe"]
+[ext_resource type="Script" uid="uid://duqjw2yai4n65" path="res://scripts/CardDatabase.gd" id="9_hrc4b"]
+[ext_resource type="Script" uid="uid://bwbgp38q2eg4q" path="res://scripts/TrackBar.gd" id="11_irk3j"]
 [ext_resource type="Texture2D" uid="uid://bdgn2yh1xrnm4" path="res://assets/LeftTrackTile.png" id="12_irk3j"]
-[ext_resource type="Script" uid="uid://bdjgenjf0m4xj" path="res://scripts/DrawPileHint.gd" id="12_prxlm"]
+[ext_resource type="Script" uid="uid://swqt13vel765" path="res://scripts/DrawPileHint.gd" id="12_prxlm"]
 [ext_resource type="Texture2D" uid="uid://c745s733jg6w2" path="res://assets/TrackTile.png" id="13_l1ooa"]
-[ext_resource type="Shader" uid="uid://dfw70mionrygi" path="res://scenes/BattleScene.gdshader" id="13_lckn5"]
-[ext_resource type="Script" uid="uid://btp7d2ictcjbc" path="res://scripts/TrackSprites.gd" id="14_l1ooa"]
+[ext_resource type="Shader" uid="uid://dtjtfjb4ucqqb" path="res://scenes/BattleScene.gdshader" id="13_lckn5"]
+[ext_resource type="Script" uid="uid://b5x82g4ylj6yc" path="res://scripts/TrackSprites.gd" id="14_l1ooa"]
 [ext_resource type="Texture2D" uid="uid://c0vmnqeeju3gv" path="res://assets/gold_arrow-removebg-preview.png" id="14_prxlm"]
-[ext_resource type="Script" uid="uid://bt3vbevc5mr4m" path="res://scripts/BattleCombatant.gd" id="15_h7erw"]
+[ext_resource type="Script" uid="uid://c1vkmuktot634" path="res://scripts/BattleCombatant.gd" id="15_h7erw"]
 [ext_resource type="Texture2D" uid="uid://c4wnq8v58xc2m" path="res://assets/Hiro Animations/Idle.png" id="15_vtyuj"]
-[ext_resource type="Script" uid="uid://ideyglvyuctu" path="res://scripts/DiscardPileWidget.gd" id="16_242tl"]
+[ext_resource type="Script" uid="uid://dbo56pf37snw8" path="res://scripts/DiscardPileWidget.gd" id="16_242tl"]
 [ext_resource type="Texture2D" uid="uid://i0cwng7o2km1" path="res://assets/RaccoonIdle.png" id="16_ahh7x"]
-[ext_resource type="Script" uid="uid://b70xm3u6yfwxg" path="res://scripts/BattleTurnSystem.gd" id="16_twkpy"]
-[ext_resource type="Script" uid="uid://dbr0jvk7shf16" path="res://scripts/BattleCardAnimator.gd" id="17_dhoow"]
-[ext_resource type="Script" uid="uid://dvk5rj1jv25dc" path="res://scripts/DiscardOverlay.gd" id="17_s45ie"]
-[ext_resource type="Script" uid="uid://chcu6bilaal1p" path="res://scripts/BattleHandController.gd" id="18_ahh7x"]
-[ext_resource type="Script" uid="uid://cr6o1eo1ck4qh" path="res://scripts/EffectEngine.gd" id="21_ahh7x"]
-[ext_resource type="Script" uid="uid://b47afy07wv2tp" path="res://scripts/TrackMovementController.gd" id="28_tse8l"]
-[ext_resource type="Script" uid="uid://ctt52ce3mrxfc" path="res://scripts/SimpleEnemyAI.gd" id="29_so6w4"]
+[ext_resource type="Script" uid="uid://da1vnvb84rgtg" path="res://scripts/BattleTurnSystem.gd" id="16_twkpy"]
+[ext_resource type="Script" uid="uid://blg8orv4t3yc4" path="res://scripts/BattleCardAnimator.gd" id="17_dhoow"]
+[ext_resource type="Script" uid="uid://d0ddhdh30wjtp" path="res://scripts/DiscardOverlay.gd" id="17_s45ie"]
+[ext_resource type="Script" uid="uid://bibmuwqwv3p3p" path="res://scripts/BattleHandController.gd" id="18_ahh7x"]
+[ext_resource type="Script" uid="uid://cg8kdrutkg2rs" path="res://scripts/EffectEngine.gd" id="21_ahh7x"]
+[ext_resource type="Script" uid="uid://cj2bcw66xb2vt" path="res://scripts/TrackMovementController.gd" id="28_tse8l"]
+[ext_resource type="Script" uid="uid://bawbxihmskm54" path="res://scripts/SimpleEnemyAI.gd" id="29_so6w4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lyay3"]
 atlas = ExtResource("15_vtyuj")
@@ -266,7 +266,7 @@ print_every_update = true
 
 [node name="Hiro" type="AnimatedSprite2D" parent="UILayer/Middle Track/Sprites"]
 texture_filter = 1
-position = Vector2(886.0741, 125)
+position = Vector2(210.07407, 125)
 scale = Vector2(3.125, 3.6666667)
 sprite_frames = SubResource("SpriteFrames_dhoow")
 animation = &"idle"

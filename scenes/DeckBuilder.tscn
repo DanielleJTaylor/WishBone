@@ -1,14 +1,14 @@
 [gd_scene load_steps=11 format=3 uid="uid://bptq510bdsvd5"]
 
-[ext_resource type="Script" uid="uid://4y4xx05ug61u" path="res://scripts/DeckBuilder.gd" id="1_i5u37"]
+[ext_resource type="Script" uid="uid://bf01qwy6v01j0" path="res://scripts/DeckBuilder.gd" id="1_i5u37"]
 [ext_resource type="Theme" uid="uid://cfq54jpka2bma" path="res://themes/DeckBuilderSaveButton.tres" id="1_nerx1"]
 [ext_resource type="Texture2D" uid="uid://bjf27bda7rhkf" path="res://assets/blueturn.png" id="1_sgepa"]
 [ext_resource type="Theme" uid="uid://clduysqu5oihs" path="res://themes/DeckBuilderConfirmButton.tres" id="2_a5qgd"]
 [ext_resource type="Theme" uid="uid://b7ej2bws4pi5c" path="res://themes/DeckBuilderLoadButton.tres" id="2_d2r6f"]
 [ext_resource type="PackedScene" uid="uid://6275gmlk8np4" path="res://scenes/DeckCardTile.tscn" id="2_tk1rq"]
-[ext_resource type="Script" uid="uid://ddqki3hm0rgxg" path="res://scripts/DeckGridView.gd" id="6_r2rm3"]
-[ext_resource type="Script" uid="uid://cwxb7khayfu5a" path="res://scripts/CardDatabase.gd" id="7_grigj"]
-[ext_resource type="Script" uid="uid://duivs6j7bkwx2" path="res://scripts/DeckDetailsView.gd" id="7_o8d34"]
+[ext_resource type="Script" uid="uid://bsil1ymajlmw8" path="res://scripts/DeckGridView.gd" id="6_r2rm3"]
+[ext_resource type="Script" uid="uid://duqjw2yai4n65" path="res://scripts/CardDatabase.gd" id="7_grigj"]
+[ext_resource type="Script" uid="uid://wg2babm882xc" path="res://scripts/DeckDetailsView.gd" id="7_o8d34"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgepa"]
 content_margin_left = 10.0
@@ -37,6 +37,10 @@ script = ExtResource("1_i5u37")
 card_db_path = NodePath("CardDatabase")
 count_label_path = NodePath("MainVBox/MarginContainer/TopBar/TopRow/CountLabel")
 confirm_button_path = NodePath("MainVBox/MarginContainer/TopBar/TopRow/ConfirmButton")
+deck_picker_path = NodePath("MainVBox/MarginContainer/TopBar/TopRow/DeckPicker")
+deck_name_path = NodePath("MainVBox/MarginContainer/TopBar/TopRow/DeckName")
+save_button_path = NodePath("MainVBox/MarginContainer/TopBar/TopRow/SaveButton")
+load_button_path = NodePath("MainVBox/MarginContainer/TopBar/TopRow/LoadButton")
 
 [node name="TextureRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -71,7 +75,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_sgepa")
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Button" type="Button" parent="MainVBox/MarginContainer/TopBar/TopRow"]
+[node name="BackButton" type="Button" parent="MainVBox/MarginContainer/TopBar/TopRow"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
@@ -228,3 +232,8 @@ scroll_active = false
 
 [node name="CardDatabase" type="Node" parent="."]
 script = ExtResource("7_grigj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
