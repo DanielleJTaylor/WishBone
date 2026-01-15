@@ -2,17 +2,11 @@
 extends Node
 class_name CardDatabase
 
-# CardDatabase = ALL cards that exist in the game (player + enemies).
-# GameManager decides what the player can draw (deck/unlocked).
-# Enemy decks are chosen by enemy-specific database helpers (ex: ChipsCardDatabase).
-
 @export_group("Debug")
 @export var debug_enabled: bool = true
 
-# CardView PackedScene (BattleUI calls set_card_scene)
 var _card_scene: PackedScene = null
 
-# Internal storage
 var _cards: Dictionary = {}          # id -> Dictionary
 var _ordered_ids: Array[String] = [] # stable ordering
 
@@ -42,11 +36,29 @@ func get_card_data(card_id: String) -> Dictionary:
 	_normalize_card(d)
 	return d
 
+# ✅ pool filters
+func get_player_card_ids() -> Array[String]:
+	return get_ids_by_pool("player")
+
+func get_enemy_card_ids() -> Array[String]:
+	return get_ids_by_pool("enemy")
+
+func get_ids_by_pool(pool: String) -> Array[String]:
+	pool = pool.to_lower()
+	var out: Array[String] = []
+	for id in _ordered_ids:
+		var d: Dictionary = _cards[id] as Dictionary
+		var p := String(d.get("pool", "")).to_lower()
+
+		if p == "":
+			var owner := String(d.get("owner", "")).to_lower()
+			p = "player" if owner == "hiro" else "enemy"
+
+		if p == pool or p == "both":
+			out.append(id)
+	return out
+
 # ✅ Player draw pool ONLY (Hiro)
-# Priority:
-# 1) GameManager.current_deck
-# 2) GameManager.unlocked_cards
-# 3) Fallback: only cards tagged owner="hiro"
 func get_deck_ids() -> Array[String]:
 	var gm := get_node_or_null("/root/GameManager")
 	if gm != null:
@@ -68,26 +80,17 @@ func get_deck_ids() -> Array[String]:
 			if unlocked2 is Array and not (unlocked2 as Array).is_empty():
 				return (unlocked2 as Array).duplicate()
 
-	# Fallback: ONLY Hiro-owned cards
 	return get_ids_by_owner("hiro")
 
-# ✅ Enemy helper: get a deck list for a specific enemy at a specific level
-# Example: get_enemy_deck_ids("chips", 1)
+# ✅ Enemy helper
 func get_enemy_deck_ids(enemy_id: String, level: int) -> Array[String]:
 	enemy_id = enemy_id.to_lower()
-
 	match enemy_id:
 		"chips":
 			return ChipsCardDatabase.get_deck_ids(level)
-		# Add more later:
-		# "raven":
-		#     return RavenCardDatabase.get_deck_ids(level)
 		_:
-			# Fallback: any cards tagged owner=enemy_id
 			return get_ids_by_owner(enemy_id)
 
-# ✅ Utility: filter card ids by an "owner" field
-# owner values: "hiro", "chips", "raven", etc.
 func get_ids_by_owner(owner: String) -> Array[String]:
 	owner = owner.to_lower()
 	var out: Array[String] = []
@@ -110,14 +113,9 @@ func make_card_instance(card_id: String) -> Control:
 	if c == null:
 		return null
 
-	# Helpful name in the scene tree
 	c.name = "Card_%s" % card_id
-
-	# Store card id meta for quick debugging
 	(c as Node).set_meta("card_id", card_id)
 
-	# IMPORTANT:
-	# Apply AFTER node enters tree / ready — avoids “labels null” issues.
 	var data := get_card_data(card_id)
 	if c.has_method("set_from_data"):
 		c.call_deferred("set_from_data", data)
@@ -139,23 +137,24 @@ func _normalize_card(d: Dictionary) -> void:
 	if not d.has("type"):
 		d["type"] = ""
 
-	# ✅ Owner tag used for "Hiro only draws Hiro cards"
-	# If missing, default to "hiro" (safe for your current 5 Hiro cards)
-	if not d.has("owner"):
+	if not d.has("owner") or String(d.get("owner", "")).strip_edges() == "":
 		d["owner"] = "hiro"
+
+	if not d.has("pool") or String(d.get("pool", "")).strip_edges() == "":
+		var o := String(d.get("owner", "")).to_lower()
+		d["pool"] = "player" if o == "hiro" else "enemy"
 
 	if not d.has("effect") or not (d["effect"] is Dictionary):
 		d["effect"] = {}
+
 	var eff: Dictionary = d["effect"] as Dictionary
 
-	# Normalize effect.kind ONLY from effect legacy keys (never from card.type)
 	if String(eff.get("kind", "")) == "":
 		if String(eff.get("type", "")) != "":
 			eff["kind"] = String(eff.get("type", ""))
 		elif String(eff.get("action", "")) != "":
 			eff["kind"] = String(eff.get("action", ""))
 
-	# Normalize common int fields
 	for k in ["amount", "delta", "duration", "discard_count", "draw_count", "rank"]:
 		if eff.has(k):
 			eff[k] = int(eff[k])
@@ -169,85 +168,17 @@ func _build_all_cards() -> void:
 	_cards.clear()
 	_ordered_ids.clear()
 
-	# -----------------------------
-	# Hiro Cards (owner="hiro")
-	# -----------------------------
-	_add_card({
-		"id": "big_bark",
-		"owner": "hiro",
-		"name": "Big Bark",
-		"type": "ATTACK",
-		"rank": 1,
-		"desc": "Deal 6 damage.\n(Knocks the enemy back if HP hits 0!)",
-		"art_path": "res://assets/art/cards/big_bark.png",
-		"effect": {"kind": "damage", "amount": 6}
-	})
+	# Hiro (player pool)
+	_merge_cards_from_dict(HiroCardDatabase.get_card_defs(), "hiro", "player")
 
-	_add_card({
-		"id": "tuck_and_roll",
-		"owner": "hiro",
-		"name": "Tuck & Roll",
-		"type": "DEFENSE",
-		"rank": 1,
-		"desc": "Gain 4 Shield.\n(Shield absorbs damage before your HP is touched.)",
-		"art_path": "res://assets/art/cards/tuck_roll.png",
-		"effect": {"kind": "shield", "amount": 4}
-	})
-
-	_add_card({
-		"id": "paws_forward",
-		"owner": "hiro",
-		"name": "Paws Forward",
-		"type": "MOVEMENT",
-		"rank": 1,
-		"desc": "Move Hiro +1.\n(Cannot pass the enemy.)",
-		"art_path": "res://assets/art/cards/paws_forward.png",
-		"effect": {"kind": "move", "who": "hiro", "delta": 1}
-	})
-
-	_add_card({
-		"id": "intimidate",
-		"owner": "hiro",
-		"name": "Intimidate",
-		"type": "CONDITION",
-		"rank": 1,
-		"desc": "Enemy deals -2 damage on their next 2 attacks.",
-		"art_path": "res://assets/art/cards/intimidate.png",
-		"effect": {"kind": "status", "target": "enemy", "status_id": "weaken", "amount": 2, "duration": 2}
-	})
-
-	_add_card({
-		"id": "drop_it",
-		"owner": "hiro",
-		"name": "Drop It!",
-		"type": "HAND",
-		"rank": 0,
-		"desc": "FREE: Discard 1 card to Draw 1 card.\n(Does not use a turn!)",
-		"art_path": "res://assets/art/cards/mulligan.png",
-		"effect": {"kind": "hand_mulligan", "free": true, "discard_count": 1, "draw_count": 1}
-	})
-
-	# -----------------------------
-	# Enemy Cards (merge from helpers)
-	# -----------------------------
-	# Chips cards become part of the global DB,
-	# but Hiro will NOT draw them because get_deck_ids() filters to owner="hiro"
-	_merge_cards_from_dict(ChipsCardDatabase.get_card_defs(), "chips")
+	# Enemies (enemy pool)
+	_merge_cards_from_dict(ChipsCardDatabase.get_card_defs(), "chips", "enemy")
 
 	_dbg("Built ALL cards: %d" % _ordered_ids.size())
 
-func _add_card(data: Dictionary) -> void:
-	if not data.has("id"):
-		return
-	var id := String(data["id"])
-	var d := data.duplicate(true)
-	_normalize_card(d)
-	_cards[id] = d
-	_ordered_ids.append(id)
-
-# Merge cards from a dictionary, stamping owner if missing/blank
-func _merge_cards_from_dict(defs: Dictionary, default_owner: String) -> void:
+func _merge_cards_from_dict(defs: Dictionary, default_owner: String, default_pool: String) -> void:
 	default_owner = default_owner.to_lower()
+	default_pool = default_pool.to_lower()
 
 	for raw_id in defs.keys():
 		var id := String(raw_id)
@@ -258,9 +189,11 @@ func _merge_cards_from_dict(defs: Dictionary, default_owner: String) -> void:
 
 		var d := (defs[raw_id] as Dictionary).duplicate(true)
 
-		# Stamp owner so we can filter draws correctly
 		if not d.has("owner") or String(d.get("owner", "")).strip_edges() == "":
 			d["owner"] = default_owner
+
+		if not d.has("pool") or String(d.get("pool", "")).strip_edges() == "":
+			d["pool"] = default_pool
 
 		_normalize_card(d)
 		_cards[id] = d

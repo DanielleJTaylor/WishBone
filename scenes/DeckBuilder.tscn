@@ -1,7 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bptq510bdsvd5"]
+[gd_scene load_steps=11 format=3 uid="uid://bptq510bdsvd5"]
 
+[ext_resource type="Script" uid="uid://4y4xx05ug61u" path="res://scripts/DeckBuilder.gd" id="1_i5u37"]
 [ext_resource type="Theme" uid="uid://cfq54jpka2bma" path="res://themes/DeckBuilderSaveButton.tres" id="1_nerx1"]
 [ext_resource type="Texture2D" uid="uid://bjf27bda7rhkf" path="res://assets/blueturn.png" id="1_sgepa"]
+[ext_resource type="Theme" uid="uid://clduysqu5oihs" path="res://themes/DeckBuilderConfirmButton.tres" id="2_a5qgd"]
+[ext_resource type="Theme" uid="uid://b7ej2bws4pi5c" path="res://themes/DeckBuilderLoadButton.tres" id="2_d2r6f"]
+[ext_resource type="PackedScene" uid="uid://6275gmlk8np4" path="res://scenes/DeckCardTile.tscn" id="2_tk1rq"]
+[ext_resource type="Script" uid="uid://ddqki3hm0rgxg" path="res://scripts/DeckGridView.gd" id="6_r2rm3"]
+[ext_resource type="Script" uid="uid://cwxb7khayfu5a" path="res://scripts/CardDatabase.gd" id="7_grigj"]
+[ext_resource type="Script" uid="uid://duivs6j7bkwx2" path="res://scripts/DeckDetailsView.gd" id="7_o8d34"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgepa"]
 content_margin_left = 10.0
@@ -26,6 +33,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_i5u37")
+card_db_path = NodePath("CardDatabase")
+count_label_path = NodePath("MainVBox/MarginContainer/TopBar/TopRow/CountLabel")
+confirm_button_path = NodePath("MainVBox/MarginContainer/TopBar/TopRow/ConfirmButton")
 
 [node name="TextureRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -45,60 +56,79 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
 
-[node name="TopBar" type="PanelContainer" parent="MainVBox"]
-custom_minimum_size = Vector2(90, 90)
+[node name="MarginContainer" type="MarginContainer" parent="MainVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TopBar" type="PanelContainer" parent="MainVBox/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sgepa")
 
-[node name="TopRow" type="HBoxContainer" parent="MainVBox/TopBar"]
+[node name="TopRow" type="HBoxContainer" parent="MainVBox/MarginContainer/TopBar"]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="CountLabel" type="Label" parent="MainVBox/TopBar/TopRow"]
-custom_minimum_size = Vector2(320, 0)
+[node name="Button" type="Button" parent="MainVBox/MarginContainer/TopBar/TopRow"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 28
+text = "< Back"
+
+[node name="CountLabel" type="Label" parent="MainVBox/MarginContainer/TopBar/TopRow"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "0 / 52"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DeckPicker" type="OptionButton" parent="MainVBox/TopBar/TopRow"]
+[node name="DeckPicker" type="OptionButton" parent="MainVBox/MarginContainer/TopBar/TopRow"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.75
+theme_override_font_sizes/font_size = 28
 
-[node name="DeckName" type="LineEdit" parent="MainVBox/TopBar/TopRow"]
+[node name="DeckName" type="LineEdit" parent="MainVBox/MarginContainer/TopBar/TopRow"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
 text = "Name"
 
-[node name="SaveButton" type="Button" parent="MainVBox/TopBar/TopRow"]
+[node name="SaveButton" type="Button" parent="MainVBox/MarginContainer/TopBar/TopRow"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme = ExtResource("1_nerx1")
-theme_override_font_sizes/font_size = 42
+theme_override_font_sizes/font_size = 36
 text = "Save"
 
-[node name="LoadButton" type="Button" parent="MainVBox/TopBar/TopRow"]
+[node name="LoadButton" type="Button" parent="MainVBox/MarginContainer/TopBar/TopRow"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 42
+theme = ExtResource("2_d2r6f")
+theme_override_font_sizes/font_size = 36
 text = "Load
 "
 
-[node name="ConfirmButton" type="Button" parent="MainVBox/TopBar/TopRow"]
+[node name="ConfirmButton" type="Button" parent="MainVBox/MarginContainer/TopBar/TopRow"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 42
+theme = ExtResource("2_a5qgd")
+theme_override_font_sizes/font_size = 36
 text = "Confirm
 "
 
 [node name="Tabs" type="TabContainer" parent="MainVBox"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 28
 current_tab = 0
+script = ExtResource("6_r2rm3")
+tile_scene = ExtResource("2_tk1rq")
 
 [node name="All" type="Control" parent="MainVBox/Tabs"]
 clip_contents = true
@@ -112,14 +142,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
-[node name="AllGrid" type="GridContainer" parent="MainVBox/Tabs/All/AllScroll"]
+[node name="AllCenter" type="CenterContainer" parent="MainVBox/Tabs/All/AllScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AllGrid" type="GridContainer" parent="MainVBox/Tabs/All/AllScroll/AllCenter"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 14
-columns = 8
+columns = 6
 
 [node name="Selected" type="Control" parent="MainVBox/Tabs"]
 visible = false
@@ -133,13 +169,26 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
-[node name="SelLGrid" type="VBoxContainer" parent="MainVBox/Tabs/Selected/SelScroll"]
+[node name="SelCenter" type="CenterContainer" parent="MainVBox/Tabs/Selected/SelScroll"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SelGrid" type="GridContainer" parent="MainVBox/Tabs/Selected/SelScroll/SelCenter"]
+layout_mode = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
 
 [node name="BottomDetails" type="PanelContainer" parent="MainVBox"]
 custom_minimum_size = Vector2(0, 320)
 layout_mode = 2
+script = ExtResource("7_o8d34")
+art_path = NodePath("DetailRow/Art")
+name_path = NodePath("DetailRow/TextCol/NameLabel")
+meta_path = NodePath("DetailRow/TextCol/MetaLabel")
+desc_path = NodePath("DetailRow/TextCol/DescLabel")
 
 [node name="DetailRow" type="HBoxContainer" parent="MainVBox/BottomDetails"]
 layout_mode = 2
@@ -153,12 +202,29 @@ stretch_mode = 5
 
 [node name="TextCol" type="VBoxContainer" parent="MainVBox/BottomDetails/DetailRow"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="NameLabel" type="Label" parent="MainVBox/BottomDetails/DetailRow/TextCol"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Name of Card"
 
 [node name="MetaLabel" type="Label" parent="MainVBox/BottomDetails/DetailRow/TextCol"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Rank Type"
 
 [node name="DescLabel" type="RichTextLabel" parent="MainVBox/BottomDetails/DetailRow/TextCol"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/bold_font_size = 29
+theme_override_font_sizes/bold_italics_font_size = 28
+theme_override_font_sizes/italics_font_size = 28
+theme_override_font_sizes/mono_font_size = 28
+text = "The Long Block of Description
+"
+scroll_active = false
+
+[node name="CardDatabase" type="Node" parent="."]
+script = ExtResource("7_grigj")

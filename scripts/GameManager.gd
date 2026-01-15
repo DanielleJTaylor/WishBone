@@ -7,8 +7,14 @@ signal card_discarded(card_id: String)
 const MAX_DECK_SIZE: int = 12
 
 var unlocked_cards: Array[String] = [
-	"big_bark", "tuck_and_roll", "paws_forward", "intimidate", "drop_it"
+	"big_bark",
+	"tuck_and_roll",
+	"paws_forward",
+	"intimidate",
+	"drop_it",
+	"lick_wounds" # ✅ new healing starter
 ]
+
 var current_deck: Array[String] = []
 
 # ✅ newest -> oldest
